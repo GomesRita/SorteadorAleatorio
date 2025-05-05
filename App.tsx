@@ -1,24 +1,25 @@
 import { StyleSheet, Text, View, Button } from 'react-native';
-
+import React, { useState } from 'react';
 
 export default function App() {
-  let sorteados: number[] = []
+  const [sorteados, setSorteados] = useState<number[]>([]);
+
+  let numeros: number[] = []
   const gerador = (): any =>{
-    for (let i = 0; i <= 6; i++){
-      const num: number = Math.random()
-      if(sorteados.includes(num)){
-        i = i - 1
-      }
-      else{
-        sorteados.push(num)
+    for (let i = 0; i <= 5; i++){
+      const num: number = Math.floor(Math.random() * 60) *1
+      if(!numeros.includes(num)){
+        numeros.push(num)
       }
     }
-    return sorteados;
+    setSorteados(numeros);
   }
 
   return (
     <View style={styles.container}>
-      {sorteados !== null && <Text>{sorteados}</Text>}
+      {sorteados !== null && sorteados.map((item, index) => (
+        <Text key={index}>{item}</Text>
+      ))}
       <Button title='Sortear' onPress={gerador}></Button>
     </View>
   );
