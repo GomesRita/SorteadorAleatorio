@@ -1,11 +1,25 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Button } from 'react-native';
+
 
 export default function App() {
+  let sorteados: number[] = []
+  const gerador = (): any =>{
+    for (let i = 0; i <= 6; i++){
+      const num: number = Math.random()
+      if(sorteados.includes(num)){
+        i = i - 1
+      }
+      else{
+        sorteados.push(num)
+      }
+    }
+    return sorteados;
+  }
+
   return (
     <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
+      {sorteados !== null && <Text>{sorteados}</Text>}
+      <Button title='Sortear' onPress={gerador}></Button>
     </View>
   );
 }
